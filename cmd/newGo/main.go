@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
 	"github.com/Tillter2998/newGo/internal/applicationStrategy"
 )
@@ -12,9 +13,14 @@ func main() {
 	var projectName string
 	var projectDir string
 
-	flag.StringVar(&projectType, "type", "", "Type of project to bootstrap")
-	flag.StringVar(&projectName, "name", "", "Name of the project")
-	flag.StringVar(&projectDir, "dir", "", "Directory to create project in")
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	flag.StringVar(&projectType, "type", "empty", "Type of project to bootstrap")
+	flag.StringVar(&projectName, "name", "newGoApp", "Name of the project")
+	flag.StringVar(&projectDir, "dir", currentDir, "Directory to create project in")
 
 	flag.Parse()
 
@@ -23,6 +29,7 @@ func main() {
 
 	if flag.NFlag() > 0 {
 		// run without TUI
+
 		strategy, err := appRegistry.GetStrategy(projectType)
 		if err != nil {
 			log.Fatal(err)

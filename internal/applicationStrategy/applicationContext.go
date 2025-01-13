@@ -1,6 +1,8 @@
 package applicationStrategy
 
-import "errors"
+import (
+	"errors"
+)
 
 type ApplicationContext struct {
 	strategy ApplicationStrategy
