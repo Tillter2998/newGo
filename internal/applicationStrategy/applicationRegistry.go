@@ -2,6 +2,7 @@ package applicationStrategy
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -17,7 +18,7 @@ func (ar *ApplicationRegistry) GetStrategy(key string) (ApplicationStrategy, err
 	if strategy, ok := ar.strategies[strings.ToLower(key)]; ok {
 		return strategy, nil
 	}
-	return nil, errors.New("No such application type")
+	return nil, errors.New(fmt.Sprintf("no such application type: %s", key))
 }
 
 var registry = new(ApplicationRegistry)
